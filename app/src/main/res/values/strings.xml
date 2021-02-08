@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TP1 INF8405</string>
+    <string name="main_title">Welcome to TP1!</string>
+    <string name="main_play">PLAY</string>
+    <string name="main_about">ABOUT</string>
+    <string name="main_exit">EXIT</string>
 </resources>
