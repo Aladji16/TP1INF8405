@@ -4,4 +4,12 @@
     <string name="main_play">PLAY</string>
     <string name="main_about">ABOUT</string>
     <string name="main_exit">EXIT</string>
+
+    <string name="about_title">ABOUT US</string>
+    <string name="about_members_header">MEMBERS:</string>
+    <string name="about_member1">Dinh Huân Philippe Duong</string>
+    <string name="about_member2">Yassine Belkacemi</string>
+    <string name="about_member3">Simon Moreau</string>
+    <string name="about_member4">Aladji Faye</string>
+    <string name="about_group">Groupe 01</string>
 </resources>

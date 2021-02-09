@@ -2,6 +2,7 @@ package com.example.tp1inf8405;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
 
         aboutB.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Toast toast = Toast.makeText(getApplicationContext(), "You chose ABOUT!", Toast.LENGTH_LONG);
-                toast.show();
+                Intent aboutIntent = new Intent(getApplicationContext(), AboutActivity.class);
+                startActivity(aboutIntent);
             }
         });
 
