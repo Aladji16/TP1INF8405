@@ -12,6 +12,8 @@
         <activity android:name=".AboutActivity"
             android:label="@string/about_title"
             android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".ChooseGridSize"
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
