@@ -11,7 +11,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
-public class ChooseGridSize extends AppCompatActivity {
+public class ChooseGridSizeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
