@@ -50,11 +50,17 @@ public class GameActivity extends AppCompatActivity {
                     compteur++;
                     imageButton.setAdjustViewBounds(true);
                     imageButton.setBackgroundColor(Color.WHITE);
-                    imageButton.setImageResource(R.drawable.post_97990_1260678617);
+
                     CharSequence text = "Tour du joueur 1";
                     if (compteur % 2 == 1)
                     {
                         text = "Tour du joueur 2";
+                        imageButton.setImageResource(R.drawable.post_97990_1260678617);
+                    }
+
+                    else
+                    {
+                        imageButton.setImageResource(R.drawable.post_97990_1260678636);
                     }
                     textViewTurn.setText(text);
                     imageButton.setClickable(false);
