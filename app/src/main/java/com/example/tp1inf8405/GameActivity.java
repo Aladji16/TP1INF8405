@@ -1,18 +1,22 @@
 package com.example.tp1inf8405;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,13 +39,24 @@ public class GameActivity extends AppCompatActivity {
         int col = lastPlayPosition % gridSize;
 
 
+
+
         //vérification ligne
-        int i = row;
+        int i = row * gridSize;
         ButtonToeClass button = positionMap.get(i);
+
+        for (int j = row; j < row + gridSize; j++)
+        {
+            ButtonToeClass buttonTest = positionMap.get(j);
+
+        }
+
         while ((i < row + gridSize) && button.getPlayer() == lastPlayer)
         {
-            i++;
+            i += 1;
+
             button = positionMap.get(i);
+
         }
         if (i == row + gridSize)
         {
@@ -58,6 +73,7 @@ public class GameActivity extends AppCompatActivity {
         {
             i += gridSize;
             button = positionMap.get(i);
+
         }
 
         if (i == col + gridSize * gridSize)
@@ -140,6 +156,10 @@ public class GameActivity extends AppCompatActivity {
             ButtonToeClass imageButton = new ButtonToeClass(getApplicationContext(),j);
             positionMap.put(j, imageButton);
 
+//                    https://www.android-examples.com/change-imagebutton-image-width-height-in-android-programmatically/
+            ViewGroup.LayoutParams layoutParams =  new ViewGroup.LayoutParams(120, 120);
+
+            imageButton.setLayoutParams(layoutParams);
 
             int finalGridSize = gridSize;
             imageButton.setOnClickListener(new View.OnClickListener() {
@@ -155,7 +175,9 @@ public class GameActivity extends AppCompatActivity {
                     if (compteur % 2 == 1)
                     { //o
                         imageButton.setPlayer(1);
-//                        imageButton.setImageResource(R.drawable.post_97990_1260678636);
+                        imageButton.setImageResource(R.drawable.post_97990_1260678636);
+
+
                         text = "Tour du joueur 2";
 
                     }
@@ -163,9 +185,11 @@ public class GameActivity extends AppCompatActivity {
                     else
                     { //x
                         imageButton.setPlayer(2);
-//                        imageButton.setImageResource(R.drawable.post_97990_1260678617);
+                        imageButton.setImageResource(R.drawable.post_97990_1260678617);
 
                     }
+
+
                     textViewTurn.setText(text);
                     imageButton.setClickable(false);
 
