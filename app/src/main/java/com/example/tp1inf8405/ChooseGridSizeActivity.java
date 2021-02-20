@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -24,13 +23,16 @@ public class ChooseGridSize extends AppCompatActivity {
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
-//                Intent aboutIntent = new Intent(getApplicationContext(), AboutActivity.class);
-//                startActivity(aboutIntent);
                 RadioButton checkedButton = findViewById(radioGroup.getCheckedRadioButtonId());
+                CharSequence gridSize = checkedButton.getText();
 
-                Toast toast = Toast.makeText(getApplicationContext(), "You chose "+ checkedButton.getText(), Toast.LENGTH_LONG);
-                toast.show();
+                Intent gameIntent = new Intent(getApplicationContext(), GameActivity.class);
+                gameIntent.putExtra("size",gridSize);
+                startActivity(gameIntent);
+//                RadioButton checkedButton = findViewById(radioGroup.getCheckedRadioButtonId());
+//
+//                Toast toast = Toast.makeText(getApplicationContext(), "You chose "+ checkedButton.getText(), Toast.LENGTH_LONG);
+//                toast.show();
             }
         });
     }
