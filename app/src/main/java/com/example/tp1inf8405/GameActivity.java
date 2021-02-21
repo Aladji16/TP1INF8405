@@ -45,26 +45,16 @@ public class GameActivity extends AppCompatActivity {
         int i = row * gridSize;
         ButtonToeClass button = positionMap.get(i);
 
-        //pour tests
-        Log.d("STATE",String.valueOf(lastPlayer));
-
-        for (int j = row * gridSize; j < row * gridSize + gridSize; j++)
-        {
-            ButtonToeClass buttonTest = positionMap.get(j);
-            Log.d("STATE",String.valueOf(buttonTest.getPlayer()));
-
-        }
-
-        //vrai code
 
         while ((i < row * gridSize + gridSize) && button.getPlayer() == lastPlayer)
         {
+
             i += 1;
 
             button = positionMap.get(i);
 
         }
-        if (i == row + gridSize)
+        if (i == row * gridSize + gridSize)
         {
             return lastPlayer;
         }
@@ -76,13 +66,7 @@ public class GameActivity extends AppCompatActivity {
         i = col;
         button = positionMap.get(i);
 
-        //pour tests
-        for (int j = col; j < col + gridSize * gridSize; j += gridSize)
-        {
-            ButtonToeClass buttonTest = positionMap.get(j);
-            Log.d("STATE",String.valueOf(buttonTest.getPlayer()));
 
-        }
 
         //vrai code
         while ( (i < col + gridSize * gridSize) && button.getPlayer() == lastPlayer)
@@ -244,7 +228,6 @@ public class GameActivity extends AppCompatActivity {
                 //https://www.thetopsites.net/article/58948853.shtml
                 for (int i = 0; i < gameGrid.getChildCount(); i++)
                 {
-//                   Log.d("STATE","hahahaha");
                    ButtonToeClass imageButton = (ButtonToeClass) gameGrid.getChildAt(i);
                    imageButton.setClickable(true);
                    imageButton.setPlayer(0);
