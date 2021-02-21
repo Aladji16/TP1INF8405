@@ -9,12 +9,13 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ButtonToeClass extends ImageButton {
+public class ButtonToeClass extends ImageView {
     private int player; //si le joueur 1 ou 2 a joué (débute à 0)
     private int position; //position du bouton
 
@@ -23,6 +24,9 @@ public class ButtonToeClass extends ImageButton {
         super(context);
         this.position = position;
         player = 0;
+        this.setClickable(true);
+        this.setImageResource(R.drawable.simple_black_frame_md); //ne fonctionne pas???
+
 
     }
 

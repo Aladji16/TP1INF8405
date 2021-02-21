@@ -206,7 +206,6 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
             gameGrid.addView(imageButton);
-            imageButton.setImageResource(R.drawable.simple_black_frame_md); //ne fonctionne pas???
 
         }
 
