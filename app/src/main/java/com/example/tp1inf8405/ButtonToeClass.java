@@ -23,6 +23,7 @@ public class ButtonToeClass extends ImageButton {
         super(context);
         this.position = position;
         player = 0;
+
     }
 
 

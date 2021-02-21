@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
 
         playB.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-//                Toast toast = Toast.makeText(getApplicationContext(), "You chose PLAY!", Toast.LENGTH_LONG);
-//                toast.show();
                 Intent chooseSizeIntent = new Intent(getApplicationContext(), ChooseGridSizeActivity.class);
                 startActivity(chooseSizeIntent);
             }

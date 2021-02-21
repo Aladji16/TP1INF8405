@@ -45,13 +45,15 @@ public class GameActivity extends AppCompatActivity {
         int i = row * gridSize;
         ButtonToeClass button = positionMap.get(i);
 
-        for (int j = row; j < row + gridSize; j++)
+        //pour tests
+        for (int j = row * gridSize; j < row * gridSize + gridSize; j++)
         {
             ButtonToeClass buttonTest = positionMap.get(j);
+            Log.d("STATE",String.valueOf(buttonTest.getPlayer()));
 
         }
 
-        while ((i < row + gridSize) && button.getPlayer() == lastPlayer)
+        while ((i < row * gridSize + gridSize) && button.getPlayer() == lastPlayer)
         {
             i += 1;
 
@@ -137,8 +139,6 @@ public class GameActivity extends AppCompatActivity {
 
         HashMap<Integer,ButtonToeClass> positionMap = new HashMap<Integer,ButtonToeClass>(); //hashmap pour lier les positions aux boutons
 
-
-
         Intent i = getIntent();
         Bundle extras = i.getExtras();
         int gridSize = 3;
@@ -151,9 +151,10 @@ public class GameActivity extends AppCompatActivity {
         gameGrid.setColumnCount(gridSize);
         gameGrid.setRowCount(gridSize);
 
-        //        code pour afficher une croix
+        //        code pour créer et afficher la grille
         for (int j = 0; j < gridSize * gridSize; j++) {
             ButtonToeClass imageButton = new ButtonToeClass(getApplicationContext(),j);
+
             positionMap.put(j, imageButton);
 
 //                    https://www.android-examples.com/change-imagebutton-image-width-height-in-android-programmatically/
@@ -162,6 +163,7 @@ public class GameActivity extends AppCompatActivity {
             imageButton.setLayoutParams(layoutParams);
 
             int finalGridSize = gridSize;
+
             imageButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
 
@@ -196,7 +198,7 @@ public class GameActivity extends AppCompatActivity {
                     int winner = isGameOver(positionMap, imageButton, finalGridSize);
                     if (winner > 0)
                     {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Le joueur "+ String.valueOf(winner) + " a gagné", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Le joueur "+ String.valueOf(winner) + " a gagné", Toast.LENGTH_SHORT);
                         toast.show();
                     }
 
@@ -204,24 +206,31 @@ public class GameActivity extends AppCompatActivity {
                 }
             });
             gameGrid.addView(imageButton);
+            imageButton.setImageResource(R.drawable.simple_black_frame_md); //ne fonctionne pas???
+
         }
 
+        Button resetButton = (Button) findViewById(R.id.resetButton);
 
 
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //https://www.thetopsites.net/article/58948853.shtml
+                for (int i = 0; i < gameGrid.getChildCount(); i++)
+                {
+//                   Log.d("STATE","hahahaha");
+                   ButtonToeClass imageButton = (ButtonToeClass) gameGrid.getChildAt(i);
+                   imageButton.setClickable(true);
+                   imageButton.setPlayer(0);
+                   imageButton.setImageResource(R.drawable.simple_black_frame_md); //ne fonctionne pas???
+                   compteur = 0;
+                   textViewTurn.setText("Tour du joueur 1");
 
-//        code pour ajouter tous les boutons
-//        for (int j = 0; j < gridSize * gridSize; j++) {
-//            Button button = new Button(getApplicationContext());
-//
-//            gameGrid.addView(button);
-//        }
 
+                }
 
-
-
-//        Toast toast = Toast.makeText(getApplicationContext(), "You chose "+ String.valueOf(gridSize), Toast.LENGTH_LONG);
-//        toast.show();
-
+            }
+        });
 
 
     }
