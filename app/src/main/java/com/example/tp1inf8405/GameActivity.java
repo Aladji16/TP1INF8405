@@ -46,12 +46,16 @@ public class GameActivity extends AppCompatActivity {
         ButtonToeClass button = positionMap.get(i);
 
         //pour tests
+        Log.d("STATE",String.valueOf(lastPlayer));
+
         for (int j = row * gridSize; j < row * gridSize + gridSize; j++)
         {
             ButtonToeClass buttonTest = positionMap.get(j);
             Log.d("STATE",String.valueOf(buttonTest.getPlayer()));
 
         }
+
+        //vrai code
 
         while ((i < row * gridSize + gridSize) && button.getPlayer() == lastPlayer)
         {
@@ -71,6 +75,16 @@ public class GameActivity extends AppCompatActivity {
         //vérification colonne
         i = col;
         button = positionMap.get(i);
+
+        //pour tests
+        for (int j = col; j < col + gridSize * gridSize; j += gridSize)
+        {
+            ButtonToeClass buttonTest = positionMap.get(j);
+            Log.d("STATE",String.valueOf(buttonTest.getPlayer()));
+
+        }
+
+        //vrai code
         while ( (i < col + gridSize * gridSize) && button.getPlayer() == lastPlayer)
         {
             i += gridSize;
@@ -200,6 +214,19 @@ public class GameActivity extends AppCompatActivity {
                     {
                         Toast toast = Toast.makeText(getApplicationContext(), "Le joueur "+ String.valueOf(winner) + " a gagné", Toast.LENGTH_SHORT);
                         toast.show();
+                        if (winner == 1) {
+                            TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
+                            CharSequence text_score = scorePlayer1.getText();
+                            int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
+                            scorePlayer1.setText("Score joueur 1 : "+ String.valueOf(number + 1));
+                        }
+                        else
+                        {
+                            TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
+                            CharSequence text_score = scorePlayer2.getText();
+                            int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
+                            scorePlayer2.setText("Score joueur 1 : "+ String.valueOf(number + 1));
+                        }
                     }
 
 
