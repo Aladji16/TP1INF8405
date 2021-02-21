@@ -3,6 +3,8 @@ package com.example.tp1inf8405;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -28,7 +30,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     public int isGameOver(HashMap<Integer,ButtonToeClass> positionMap, ButtonToeClass lastPlay, int gridSize)
-            //retourne 0 si personne n'a gagné, 1 si c'est le joueur 1, 2 si c'est le joueur 2
+            //retourne 0 si personne n'a gagné, 1 si c'est le joueur 1, 2 si c'est le joueur 2, 3 s'il n'y a plus de place
     {
 
         int lastPlayer = lastPlay.getPlayer();
@@ -123,6 +125,20 @@ public class GameActivity extends AppCompatActivity {
 
         }
 
+        //si toutes les cases sont remplies sans vainqueur
+        i = 0;
+        button = positionMap.get(i);
+        while (i < gridSize * gridSize && button.getPlayer() > 0)
+        {
+            i += 1;
+            button = positionMap.get(i);
+
+        }
+
+        if (i == gridSize * gridSize )
+        {
+            return 3;
+        }
         return 0;
     }
 
@@ -137,13 +153,36 @@ public class GameActivity extends AppCompatActivity {
 
         HashMap<Integer,ButtonToeClass> positionMap = new HashMap<Integer,ButtonToeClass>(); //hashmap pour lier les positions aux boutons
 
+        int player1_wins = 0;
+        int player2_wins = 0;
+
+
         Intent i = getIntent();
         Bundle extras = i.getExtras();
+
+
+
+
         int gridSize = 3;
         if (extras.containsKey("size")) {
             gridSize = Integer.parseInt(i.getCharSequenceExtra("size").toString());
         }
 
+        if (extras.containsKey("player1_wins")) {
+
+            player1_wins = i.getIntExtra("player1_wins",0);
+        }
+
+        if (extras.containsKey("player2_wins")) {
+            player2_wins = i.getIntExtra("player2_wins",0);
+
+        }
+
+        TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
+        TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
+
+        scorePlayer1.setText("Score joueur 1 : " + String.valueOf(player1_wins));
+        scorePlayer2.setText("Score joueur 2 : " + String.valueOf(player2_wins));
 
         androidx.gridlayout.widget.GridLayout gameGrid = findViewById(R.id.gameGrid);
         gameGrid.setColumnCount(gridSize);
@@ -204,13 +243,91 @@ public class GameActivity extends AppCompatActivity {
                             int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
                             scorePlayer1.setText("Score joueur 1 : "+ String.valueOf(number + 1));
                         }
-                        else
+                        else if (winner == 2)
                         {
                             TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
                             CharSequence text_score = scorePlayer2.getText();
                             int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
-                            scorePlayer2.setText("Score joueur 1 : "+ String.valueOf(number + 1));
+                            scorePlayer2.setText("Score joueur 2 : "+ String.valueOf(number + 1));
                         }
+
+                        else if (winner == 3)
+                        {
+                            TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
+                            scorePlayer2.setText("Match nul");
+                        }
+
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(GameActivity.this);
+                        alertDialogBuilder.setCancelable(false); //force à faire un choix
+
+                        alertDialogBuilder.setTitle("Partie terminée. \n Voulez vous recommencer la partie?");
+//                        alertDialogBuilder.setMessage("Voulez-vous recommencer la partie?");
+
+
+//                        https://exceptionshub.com/how-to-add-multiple-buttons-on-a-single-alertdialog.html ajouter plusieurs boutons
+
+                        alertDialogBuilder.setItems(new CharSequence[]
+                                        {"Rejouer la partie", "Choisir la taille de grille", "Revenur au menu principal", "Quitter le jeu"},
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                        switch (which) {
+                                            case 0:
+                                                for (int i = 0; i < gameGrid.getChildCount(); i++)
+                                                {
+                                                    ButtonToeClass imageButton = (ButtonToeClass) gameGrid.getChildAt(i);
+                                                    imageButton.setClickable(true);
+                                                    imageButton.setPlayer(0);
+                                                    imageButton.setImageResource(R.drawable.simple_black_frame_md);
+                                                    compteur = 0;
+                                                    textViewTurn.setText("Tour du joueur 1");
+
+
+                                                }
+
+                                                break;
+                                            case 1:
+                                                Intent chooseSizeIntent = new Intent(GameActivity.this, ChooseGridSizeActivity.class);
+                                                //transférer l'historique de victoires
+                                                TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
+                                                CharSequence text_score_1 = scorePlayer1.getText();
+                                                int player1_wins = Character.getNumericValue(text_score_1.charAt(text_score_1.length() - 1));
+
+                                                TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
+                                                CharSequence text_score_2 = scorePlayer2.getText();
+                                                int player2_wins = Character.getNumericValue(text_score_2.charAt(text_score_2.length() - 1));
+
+                                                chooseSizeIntent.putExtra("player1_wins",player1_wins);
+                                                chooseSizeIntent.putExtra("player2_wins",player2_wins);
+
+                                                //comment faire pour conserver les victoires de chaque joueur?
+                                                startActivity(chooseSizeIntent);
+
+                                                break;
+                                            case 2:
+                                                Intent mainMenuIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                                startActivity(mainMenuIntent);
+                                                break;
+                                            case 3:
+                                                GameActivity.this.finish();
+                                                System.exit(0); //ne fonctionne pas vraiment?
+                                                break;
+                                        }
+                                    }
+                                });
+
+//                        alertDialogBuilder.setNeutralButton("TESTTEST", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Intent chooseSizeIntent = new Intent(getApplicationContext(), ChooseGridSizeActivity.class);
+//                                startActivity(chooseSizeIntent);
+//                            }
+//                        });
+
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
                     }
 
 
@@ -231,7 +348,7 @@ public class GameActivity extends AppCompatActivity {
                    ButtonToeClass imageButton = (ButtonToeClass) gameGrid.getChildAt(i);
                    imageButton.setClickable(true);
                    imageButton.setPlayer(0);
-                   imageButton.setImageResource(R.drawable.simple_black_frame_md); //ne fonctionne pas???
+                   imageButton.setImageResource(R.drawable.simple_black_frame_md);
                    compteur = 0;
                    textViewTurn.setText("Tour du joueur 1");
 

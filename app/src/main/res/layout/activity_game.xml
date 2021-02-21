@@ -45,22 +45,24 @@
         android:id="@+id/scorePlayer1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="62dp"
+        android:layout_marginStart="60dp"
         android:text="Score joueur 1 : 0"
         android:textColor="#100E0E"
         app:layout_constraintBottom_toTopOf="@+id/gameGrid"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.493" />
 
     <TextView
         android:id="@+id/scorePlayer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="62dp"
+        android:layout_marginEnd="56dp"
         android:text="Score joueur 2 : 0"
         android:textColor="#100606"
         app:layout_constraintBottom_toTopOf="@+id/gameGrid"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.493" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
         exitB.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 // Exit the application
-                finish();
-                System.exit(0);
+                MainActivity.this.finish();
+                System.exit(0); //ne fonctionne pas vraiment?
+
             }
         });
     }
