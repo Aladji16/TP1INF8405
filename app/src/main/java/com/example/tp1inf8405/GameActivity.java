@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -235,13 +238,14 @@ public class GameActivity extends AppCompatActivity {
                     int winner = isGameOver(positionMap, imageButton, finalGridSize);
                     if (winner > 0)
                     {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Le joueur "+ String.valueOf(winner) + " a gagné", Toast.LENGTH_SHORT);
-                        toast.show();
+
+                        String toastText = "";
                         if (winner == 1) {
                             TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
                             CharSequence text_score = scorePlayer1.getText();
                             int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
                             scorePlayer1.setText("Score joueur 1 : "+ String.valueOf(number + 1));
+                            toastText = getString(R.string.joueur1);
                         }
                         else if (winner == 2)
                         {
@@ -249,25 +253,26 @@ public class GameActivity extends AppCompatActivity {
                             CharSequence text_score = scorePlayer2.getText();
                             int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
                             scorePlayer2.setText("Score joueur 2 : "+ String.valueOf(number + 1));
+                            toastText = getString(R.string.joueur2);
                         }
 
                         else if (winner == 3)
                         {
-                            TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
-                            scorePlayer2.setText("Match nul");
+                            toastText = getString(R.string.nul);
                         }
-
+                        Toast toast = Toast.makeText(getApplicationContext(), toastText, Toast.LENGTH_LONG);
+                        toast.show();
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(GameActivity.this);
                         alertDialogBuilder.setCancelable(false); //force à faire un choix
 
-                        alertDialogBuilder.setTitle("Partie terminée. \n Voulez vous recommencer la partie?");
+                        alertDialogBuilder.setTitle("Partie terminée.\nVoulez vous recommencer?");
 //                        alertDialogBuilder.setMessage("Voulez-vous recommencer la partie?");
 
 
 //                        https://exceptionshub.com/how-to-add-multiple-buttons-on-a-single-alertdialog.html ajouter plusieurs boutons
 
                         alertDialogBuilder.setItems(new CharSequence[]
-                                        {"Rejouer la partie", "Choisir la taille de grille", "Revenur au menu principal", "Quitter le jeu"},
+                                        {"Rejouer la partie", "Choisir la taille de grille", "Revenir au menu principal", "Quitter le jeu"},
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -310,8 +315,7 @@ public class GameActivity extends AppCompatActivity {
                                                 startActivity(mainMenuIntent);
                                                 break;
                                             case 3:
-                                                GameActivity.this.finish();
-                                                System.exit(0); //ne fonctionne pas vraiment?
+                                                finishAffinity();
                                                 break;
                                         }
                                     }
@@ -327,7 +331,12 @@ public class GameActivity extends AppCompatActivity {
 
 
                         AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                alertDialog.show();
+                            }
+                        }, 3600);
                     }
 
 
