@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -217,6 +218,9 @@ public class GameActivity extends AppCompatActivity {
                     if (compteur % 2 == 1)
                     { //o
                         imageButton.setPlayer(1);
+                        // Rajout du son pour le joueur 1
+                        MediaPlayer mp_player1 = MediaPlayer.create(getBaseContext(), R.raw.player1);
+                        mp_player1.start();
                         imageButton.setImageResource(R.drawable.post_97990_1260678636);
 
 
@@ -227,6 +231,9 @@ public class GameActivity extends AppCompatActivity {
                     else
                     { //x
                         imageButton.setPlayer(2);
+                        // Rajout du son pour le joueur 1
+                        MediaPlayer mp_player2 = MediaPlayer.create(getBaseContext(), R.raw.player2);
+                        mp_player2.start();
                         imageButton.setImageResource(R.drawable.post_97990_1260678617);
 
                     }

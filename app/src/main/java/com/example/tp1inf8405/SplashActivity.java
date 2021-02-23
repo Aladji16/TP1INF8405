@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         ghostImg.setAnimation(testAnimation);
 
         // Rajout du son
-        MediaPlayer mp = MediaPlayer.create(getBaseContext(), R.raw.roundstart);
+        MediaPlayer mp = MediaPlayer.create(getBaseContext(), R.raw.splash);
         mp.start();
 
         handler = new Handler();
