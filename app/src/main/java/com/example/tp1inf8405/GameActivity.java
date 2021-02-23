@@ -246,6 +246,16 @@ public class GameActivity extends AppCompatActivity {
                     if (winner > 0)
                     {
 
+                        //les cases ne sont plus clickables quand la partie est terminée
+                        for (int i = 0; i < gameGrid.getChildCount(); i++)
+                        {
+                            ButtonToeClass imageButton = (ButtonToeClass) gameGrid.getChildAt(i);
+                            imageButton.setClickable(false);
+
+                        }
+
+
+
                         String toastText = "";
                         if (winner == 1) {
                             TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
