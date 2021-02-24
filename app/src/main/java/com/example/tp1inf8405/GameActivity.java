@@ -381,7 +381,6 @@ public class GameActivity extends AppCompatActivity {
 
                 TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
                 TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
-
                 scorePlayer1.setText("Score joueur 1 : 0");
                 scorePlayer2.setText("Score joueur 2 : 0");
 
