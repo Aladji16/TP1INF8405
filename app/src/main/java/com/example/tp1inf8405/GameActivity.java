@@ -163,9 +163,6 @@ public class GameActivity extends AppCompatActivity {
 
         sph = new SharedPreferencesHelper(this);
 
-        Log.d("xx1", String.valueOf(sph.getInt("score_p1")));
-        Log.d("xx2", String.valueOf(sph.getInt("score_p2")));
-
         int player1_wins = sph.getInt("score_p1");
         int player2_wins = sph.getInt("score_p2");
 
@@ -378,9 +375,15 @@ public class GameActivity extends AppCompatActivity {
                    imageButton.setImageResource(R.drawable.simple_black_frame_md);
                    compteur = 0;
                    textViewTurn.setText("Tour du joueur 1");
-
-
                 }
+                sph.putInt("score_p1", 0);
+                sph.putInt("score_p2", 0);
+
+                TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
+                TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
+
+                scorePlayer1.setText("Score joueur 1 : 0");
+                scorePlayer2.setText("Score joueur 2 : 0");
 
             }
         });
