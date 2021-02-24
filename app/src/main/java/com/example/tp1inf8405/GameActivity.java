@@ -209,6 +209,8 @@ public class GameActivity extends AppCompatActivity {
 
             int finalGridSize = gridSize;
 
+            MediaPlayer mp_player1 = MediaPlayer.create(getBaseContext(), R.raw.player1);
+            MediaPlayer mp_player2 = MediaPlayer.create(getBaseContext(), R.raw.player2);
             imageButton.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
 
@@ -223,7 +225,6 @@ public class GameActivity extends AppCompatActivity {
                     { //o
                         imageButton.setPlayer(1);
                         // Rajout du son pour le joueur 1
-                        MediaPlayer mp_player1 = MediaPlayer.create(getBaseContext(), R.raw.player1);
                         mp_player1.start();
                         imageButton.setImageResource(R.drawable.post_97990_1260678636);
 
@@ -235,8 +236,7 @@ public class GameActivity extends AppCompatActivity {
                     else
                     { //x
                         imageButton.setPlayer(2);
-                        // Rajout du son pour le joueur 1
-                        MediaPlayer mp_player2 = MediaPlayer.create(getBaseContext(), R.raw.player2);
+                        // Rajout du son pour le joueur 2
                         mp_player2.start();
                         imageButton.setImageResource(R.drawable.post_97990_1260678617);
 
@@ -264,7 +264,8 @@ public class GameActivity extends AppCompatActivity {
                         if (winner == 1) {
                             TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
                             CharSequence text_score = scorePlayer1.getText();
-                            int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
+                            String[] splitScore = text_score.toString().split("\\s+");
+                            int number = Integer.parseInt(splitScore[splitScore.length - 1]);
                             scorePlayer1.setText("Score joueur 1 : "+ String.valueOf(number + 1));
                             sph.putInt("score_p1", number+1);
                             toastText = getString(R.string.joueur1);
@@ -273,7 +274,8 @@ public class GameActivity extends AppCompatActivity {
                         {
                             TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
                             CharSequence text_score = scorePlayer2.getText();
-                            int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
+                            String[] splitScore = text_score.toString().split("\\s+");
+                            int number = Integer.parseInt(splitScore[splitScore.length - 1]);
                             scorePlayer2.setText("Score joueur 2 : "+ String.valueOf(number + 1));
                             sph.putInt("score_p2", number+1);
                             toastText = getString(R.string.joueur2);
