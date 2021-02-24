@@ -24,6 +24,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.viralypatel.sharedpreferenceshelper.lib.SharedPreferencesHelper;
+
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,6 +33,8 @@ import java.util.TimerTask;
 public class GameActivity extends AppCompatActivity {
 
     public int compteur = 0;
+
+    SharedPreferencesHelper sph;
 
 
     public int isGameOver(HashMap<Integer,ButtonToeClass> positionMap, ButtonToeClass lastPlay, int gridSize)
@@ -157,8 +161,13 @@ public class GameActivity extends AppCompatActivity {
 
         HashMap<Integer,ButtonToeClass> positionMap = new HashMap<Integer,ButtonToeClass>(); //hashmap pour lier les positions aux boutons
 
-        int player1_wins = 0;
-        int player2_wins = 0;
+        sph = new SharedPreferencesHelper(this);
+
+        Log.d("xx1", String.valueOf(sph.getInt("score_p1")));
+        Log.d("xx2", String.valueOf(sph.getInt("score_p2")));
+
+        int player1_wins = sph.getInt("score_p1");
+        int player2_wins = sph.getInt("score_p2");
 
 
         Intent i = getIntent();
@@ -170,16 +179,6 @@ public class GameActivity extends AppCompatActivity {
         int gridSize = 3;
         if (extras.containsKey("size")) {
             gridSize = Integer.parseInt(i.getCharSequenceExtra("size").toString());
-        }
-
-        if (extras.containsKey("player1_wins")) {
-
-            player1_wins = i.getIntExtra("player1_wins",0);
-        }
-
-        if (extras.containsKey("player2_wins")) {
-            player2_wins = i.getIntExtra("player2_wins",0);
-
         }
 
         TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
@@ -262,6 +261,7 @@ public class GameActivity extends AppCompatActivity {
                             CharSequence text_score = scorePlayer1.getText();
                             int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
                             scorePlayer1.setText("Score joueur 1 : "+ String.valueOf(number + 1));
+                            sph.putInt("score_p1", number+1);
                             toastText = getString(R.string.joueur1);
                         }
                         else if (winner == 2)
@@ -270,6 +270,7 @@ public class GameActivity extends AppCompatActivity {
                             CharSequence text_score = scorePlayer2.getText();
                             int number = Character.getNumericValue(text_score.charAt(text_score.length() - 1));
                             scorePlayer2.setText("Score joueur 2 : "+ String.valueOf(number + 1));
+                            sph.putInt("score_p2", number+1);
                             toastText = getString(R.string.joueur2);
                         }
 
@@ -323,7 +324,7 @@ public class GameActivity extends AppCompatActivity {
                                                 chooseSizeIntent.putExtra("player1_wins",player1_wins);
                                                 chooseSizeIntent.putExtra("player2_wins",player2_wins);
 
-                                                //comment faire pour conserver les victoires de chaque joueur?
+
                                                 startActivity(chooseSizeIntent);
 
                                                 break;
