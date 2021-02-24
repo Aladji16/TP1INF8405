@@ -195,7 +195,15 @@ public class GameActivity extends AppCompatActivity {
             positionMap.put(j, imageButton);
 
 //                    https://www.android-examples.com/change-imagebutton-image-width-height-in-android-programmatically/
-            ViewGroup.LayoutParams layoutParams =  new ViewGroup.LayoutParams(120, 120);
+
+            ViewGroup.LayoutParams layoutParams =  new ViewGroup.LayoutParams(275, 275);
+
+            if(gridSize == 4) {
+                layoutParams =  new ViewGroup.LayoutParams(225, 225);
+            } else if(gridSize == 5) {
+                layoutParams =  new ViewGroup.LayoutParams(175, 175);
+            }
+
 
             imageButton.setLayoutParams(layoutParams);
 
