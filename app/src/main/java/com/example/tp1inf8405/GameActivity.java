@@ -289,7 +289,6 @@ public class GameActivity extends AppCompatActivity {
                         alertDialogBuilder.setCancelable(false); //force à faire un choix
 
                         alertDialogBuilder.setTitle("Partie terminée.\nVoulez vous recommencer?");
-//                        alertDialogBuilder.setMessage("Voulez-vous recommencer la partie?");
 
 
 //                        https://exceptionshub.com/how-to-add-multiple-buttons-on-a-single-alertdialog.html ajouter plusieurs boutons
@@ -339,15 +338,6 @@ public class GameActivity extends AppCompatActivity {
                                     }
                                 });
 
-//                        alertDialogBuilder.setNeutralButton("TESTTEST", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Intent chooseSizeIntent = new Intent(getApplicationContext(), ChooseGridSizeActivity.class);
-//                                startActivity(chooseSizeIntent);
-//                            }
-//                        });
-
-
                         AlertDialog alertDialog = alertDialogBuilder.create();
                         new Handler().postDelayed(alertDialog::show, 3600);
                     }
@@ -372,7 +362,7 @@ public class GameActivity extends AppCompatActivity {
                    compteur = 0;
                    textViewTurn.setText(getString(R.string.tour, 1));
                 }
-                sph.putInt("score_p1", 0);
+                sph.putInt("score_p1", 0); //on considère que "reset" réinitialise aussi les scores des joueurs
                 sph.putInt("score_p2", 0);
 
                 scorePlayer1.setText(getString(R.string.score, 1, 0));

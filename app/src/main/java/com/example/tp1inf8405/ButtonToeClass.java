@@ -25,7 +25,7 @@ public class ButtonToeClass extends ImageView {
         this.position = position;
         player = 0;
         this.setClickable(true);
-        this.setImageResource(R.drawable.simple_black_frame_md); //ne fonctionne pas???
+        this.setImageResource(R.drawable.simple_black_frame_md);
 
 
     }
