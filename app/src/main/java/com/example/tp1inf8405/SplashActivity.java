@@ -33,14 +33,11 @@ public class SplashActivity extends AppCompatActivity {
         mp.start();
 
         handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mp.stop();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
+        handler.postDelayed(() -> {
+            mp.stop();
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
         },4000);
     }
 }

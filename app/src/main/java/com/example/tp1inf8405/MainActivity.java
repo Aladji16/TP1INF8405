@@ -18,27 +18,20 @@ public class MainActivity extends AppCompatActivity {
         Button aboutB = findViewById(R.id.aboutButton);
         Button exitB = findViewById(R.id.exitButton);
 
-        playB.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        playB.setOnClickListener((View view) -> {
                 Intent chooseSizeIntent = new Intent(getApplicationContext(), ChooseGridSizeActivity.class);
                 startActivity(chooseSizeIntent);
-            }
-        });
+            });
 
-        aboutB.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        aboutB.setOnClickListener((View view) -> {
                 Intent aboutIntent = new Intent(getApplicationContext(), AboutActivity.class);
                 startActivity(aboutIntent);
-            }
-        });
+            });
 
-        exitB.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        exitB.setOnClickListener((View view) -> {
                 // Exit the application
-                MainActivity.this.finish();
-                System.exit(0); //ne fonctionne pas vraiment?
-
-            }
-        });
+                finishAffinity();
+                System.exit(0);
+            });
     }
 }

@@ -159,7 +159,7 @@ public class GameActivity extends AppCompatActivity {
 
         TextView textViewTurn = (TextView) findViewById(R.id.textViewTurn);
 
-        HashMap<Integer,ButtonToeClass> positionMap = new HashMap<Integer,ButtonToeClass>(); //hashmap pour lier les positions aux boutons
+        HashMap<Integer,ButtonToeClass> positionMap = new HashMap<>(); //hashmap pour lier les positions aux boutons
 
         sph = new SharedPreferencesHelper(this);
 
@@ -181,8 +181,9 @@ public class GameActivity extends AppCompatActivity {
         TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
         TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
 
-        scorePlayer1.setText("Score joueur 1 : " + String.valueOf(player1_wins));
-        scorePlayer2.setText("Score joueur 2 : " + String.valueOf(player2_wins));
+
+        scorePlayer1.setText(getString(R.string.score, 1, player1_wins));
+        scorePlayer2.setText(getString(R.string.score, 2, player2_wins));
 
         androidx.gridlayout.widget.GridLayout gameGrid = findViewById(R.id.gameGrid);
         gameGrid.setColumnCount(gridSize);
@@ -211,8 +212,7 @@ public class GameActivity extends AppCompatActivity {
 
             MediaPlayer mp_player1 = MediaPlayer.create(getBaseContext(), R.raw.player1);
             MediaPlayer mp_player2 = MediaPlayer.create(getBaseContext(), R.raw.player2);
-            imageButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
+            imageButton.setOnClickListener((View view) -> {
 
 
 
@@ -220,7 +220,7 @@ public class GameActivity extends AppCompatActivity {
 //                    imageButton.setAdjustViewBounds(true); //pour pouvoir modifier la taille de l'image
                     imageButton.setBackgroundColor(Color.WHITE);
 
-                    CharSequence text = "Tour du joueur 1";
+                    CharSequence text = getString(R.string.tour, 1);
                     if (compteur % 2 == 1)
                     { //o
                         imageButton.setPlayer(1);
@@ -229,7 +229,7 @@ public class GameActivity extends AppCompatActivity {
                         imageButton.setImageResource(R.drawable.post_97990_1260678636);
 
 
-                        text = "Tour du joueur 2";
+                        text = getString(R.string.tour, 2);
 
                     }
 
@@ -251,10 +251,10 @@ public class GameActivity extends AppCompatActivity {
                     {
 
                         //les cases ne sont plus clickables quand la partie est terminée
-                        for (int i = 0; i < gameGrid.getChildCount(); i++)
+                        for (int k = 0; k < gameGrid.getChildCount(); k++)
                         {
-                            ButtonToeClass imageButton = (ButtonToeClass) gameGrid.getChildAt(i);
-                            imageButton.setClickable(false);
+                            ButtonToeClass imgButton = (ButtonToeClass) gameGrid.getChildAt(k);
+                            imgButton.setClickable(false);
 
                         }
 
@@ -262,23 +262,21 @@ public class GameActivity extends AppCompatActivity {
 
                         String toastText = "";
                         if (winner == 1) {
-                            TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
                             CharSequence text_score = scorePlayer1.getText();
                             String[] splitScore = text_score.toString().split("\\s+");
                             int number = Integer.parseInt(splitScore[splitScore.length - 1]);
-                            scorePlayer1.setText("Score joueur 1 : "+ String.valueOf(number + 1));
+                            scorePlayer1.setText(getString(R.string.score, 1, number + 1));
                             sph.putInt("score_p1", number+1);
-                            toastText = getString(R.string.joueur1);
+                            toastText = getString(R.string.gagne, 1);
                         }
                         else if (winner == 2)
                         {
-                            TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
                             CharSequence text_score = scorePlayer2.getText();
                             String[] splitScore = text_score.toString().split("\\s+");
                             int number = Integer.parseInt(splitScore[splitScore.length - 1]);
-                            scorePlayer2.setText("Score joueur 2 : "+ String.valueOf(number + 1));
+                            scorePlayer2.setText(getString(R.string.score, 2, number + 1));
                             sph.putInt("score_p2", number+1);
-                            toastText = getString(R.string.joueur2);
+                            toastText = getString(R.string.gagne, 2);
                         }
 
                         else if (winner == 3)
@@ -343,17 +341,11 @@ public class GameActivity extends AppCompatActivity {
                                 });
 
                         AlertDialog alertDialog = alertDialogBuilder.create();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                alertDialog.show();
-                            }
-                        }, 3600);
+                        new Handler().postDelayed(alertDialog::show, 3600);
                     }
 
 
-                }
-            });
+                });
             gameGrid.addView(imageButton);
 
         }
@@ -361,28 +353,24 @@ public class GameActivity extends AppCompatActivity {
         Button resetButton = (Button) findViewById(R.id.resetButton);
 
 
-        resetButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        resetButton.setOnClickListener((View view) -> {
                 //https://www.thetopsites.net/article/58948853.shtml
-                for (int i = 0; i < gameGrid.getChildCount(); i++)
+                for (int j = 0; j < gameGrid.getChildCount(); j++)
                 {
-                   ButtonToeClass imageButton = (ButtonToeClass) gameGrid.getChildAt(i);
+                   ButtonToeClass imageButton = (ButtonToeClass) gameGrid.getChildAt(j);
                    imageButton.setClickable(true);
                    imageButton.setPlayer(0);
                    imageButton.setImageResource(R.drawable.simple_black_frame_md);
                    compteur = 0;
-                   textViewTurn.setText("Tour du joueur 1");
+                   textViewTurn.setText(getString(R.string.tour, 1));
                 }
                 sph.putInt("score_p1", 0); //on considère que "reset" réinitialise aussi les scores des joueurs
                 sph.putInt("score_p2", 0);
 
-                TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
-                TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
-                scorePlayer1.setText("Score joueur 1 : 0");
-                scorePlayer2.setText("Score joueur 2 : 0");
+                scorePlayer1.setText(getString(R.string.score, 1, 0));
+                scorePlayer2.setText(getString(R.string.score, 2, 0));
 
-            }
-        });
+            });
 
         Button changeGridSizeButton = (Button) findViewById(R.id.changeGridSizeButton);
 
