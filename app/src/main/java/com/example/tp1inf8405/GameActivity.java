@@ -267,7 +267,7 @@ public class GameActivity extends AppCompatActivity {
                             int number = Integer.parseInt(splitScore[splitScore.length - 1]);
                             scorePlayer1.setText(getString(R.string.score, 1, number + 1));
                             sph.putInt("score_p1", number+1);
-                            toastText = getString(R.string.joueur1);
+                            toastText = getString(R.string.gagne, 1);
                         }
                         else if (winner == 2)
                         {
@@ -276,7 +276,7 @@ public class GameActivity extends AppCompatActivity {
                             int number = Integer.parseInt(splitScore[splitScore.length - 1]);
                             scorePlayer2.setText(getString(R.string.score, 2, number + 1));
                             sph.putInt("score_p2", number+1);
-                            toastText = getString(R.string.joueur2);
+                            toastText = getString(R.string.gagne, 2);
                         }
 
                         else if (winner == 3)
