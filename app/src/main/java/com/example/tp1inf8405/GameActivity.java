@@ -258,6 +258,12 @@ public class GameActivity extends AppCompatActivity {
 
                         }
 
+                        //les boutons "reset" et "changeSize" ne sont plus clickables quand la partie est terminée
+                        Button resetButton = (Button) findViewById(R.id.resetButton);
+                        resetButton.setClickable(false);
+
+                        Button changeGridSizeButton = (Button) findViewById(R.id.changeGridSizeButton);
+                        changeGridSizeButton.setClickable(false);
 
 
                         String toastText = "";
@@ -298,6 +304,13 @@ public class GameActivity extends AppCompatActivity {
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+
+                                        //les boutons reset et changement de taille de grille redeviennent clickables
+                                        Button resetButton = (Button) findViewById(R.id.resetButton);
+                                        resetButton.setClickable(true);
+
+                                        Button changeGridSizeButton = (Button) findViewById(R.id.changeGridSizeButton);
+                                        changeGridSizeButton.setClickable(true);
 
                                         switch (which) {
                                             case 0:
