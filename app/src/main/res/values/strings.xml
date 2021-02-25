@@ -13,6 +13,8 @@
     <string name="about_member4">Aladji Faye</string>
     <string name="about_group">Groupe 01</string>
 
+    <string name="score">Score joueur %1$d : %2$d</string>
+    <string name="tour">Tour du joueur %1$d</string>
     <string name="joueur1">Le joueur 1 a gagné!</string>
     <string name="joueur2">Le joueur 2 a gagné!</string>
     <string name="nul">Match nul</string>
