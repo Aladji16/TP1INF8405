@@ -38,8 +38,7 @@ public class ChooseGridSizeActivity extends AppCompatActivity {
         Button confirmButton = findViewById(R.id.buttonConfirm);
         RadioGroup radioGroup = findViewById(R.id.radioSizeGroup);
 
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        confirmButton.setOnClickListener((View view) -> {
                 RadioButton checkedButton = findViewById(radioGroup.getCheckedRadioButtonId());
                 CharSequence gridSize = checkedButton.getText();
 
@@ -52,7 +51,6 @@ public class ChooseGridSizeActivity extends AppCompatActivity {
 //
 //                Toast toast = Toast.makeText(getApplicationContext(), "You chose "+ checkedButton.getText(), Toast.LENGTH_LONG);
 //                toast.show();
-            }
-        });
+            });
     }
 }
