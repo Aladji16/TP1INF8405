@@ -196,12 +196,12 @@ public class GameActivity extends AppCompatActivity {
 
 //                    https://www.android-examples.com/change-imagebutton-image-width-height-in-android-programmatically/
 
-            ViewGroup.LayoutParams layoutParams =  new ViewGroup.LayoutParams(275, 275);
+            ViewGroup.LayoutParams layoutParams =  new ViewGroup.LayoutParams(225, 225);
 
             if(gridSize == 4) {
-                layoutParams =  new ViewGroup.LayoutParams(225, 225);
-            } else if(gridSize == 5) {
                 layoutParams =  new ViewGroup.LayoutParams(175, 175);
+            } else if(gridSize == 5) {
+                layoutParams =  new ViewGroup.LayoutParams(125, 125);
             }
 
 
@@ -217,7 +217,7 @@ public class GameActivity extends AppCompatActivity {
 
 
                     compteur++;
-                    imageButton.setAdjustViewBounds(true); //pour pouvoir modifier la taille de l'image
+//                    imageButton.setAdjustViewBounds(true); //pour pouvoir modifier la taille de l'image
                     imageButton.setBackgroundColor(Color.WHITE);
 
                     CharSequence text = "Tour du joueur 1";
@@ -319,13 +319,10 @@ public class GameActivity extends AppCompatActivity {
                                             case 1:
                                                 Intent chooseSizeIntent = new Intent(GameActivity.this, ChooseGridSizeActivity.class);
                                                 //transférer l'historique de victoires
-                                                TextView scorePlayer1 = (TextView) findViewById(R.id.scorePlayer1);
-                                                CharSequence text_score_1 = scorePlayer1.getText();
-                                                int player1_wins = Character.getNumericValue(text_score_1.charAt(text_score_1.length() - 1));
 
-                                                TextView scorePlayer2 = (TextView) findViewById(R.id.scorePlayer2);
-                                                CharSequence text_score_2 = scorePlayer2.getText();
-                                                int player2_wins = Character.getNumericValue(text_score_2.charAt(text_score_2.length() - 1));
+
+                                                int player1_wins = sph.getInt("score_p1");
+                                                int player2_wins = sph.getInt("score_p2");
 
                                                 chooseSizeIntent.putExtra("player1_wins",player1_wins);
                                                 chooseSizeIntent.putExtra("player2_wins",player2_wins);
@@ -387,6 +384,25 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
+        Button changeGridSizeButton = (Button) findViewById(R.id.changeGridSizeButton);
+
+
+        changeGridSizeButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Intent chooseSizeIntent = new Intent(GameActivity.this, ChooseGridSizeActivity.class);
+
+                int player1_wins = sph.getInt("score_p1");
+                int player2_wins = sph.getInt("score_p2");
+
+                chooseSizeIntent.putExtra("player1_wins",player1_wins);
+                chooseSizeIntent.putExtra("player2_wins",player2_wins);
+
+
+                startActivity(chooseSizeIntent);
+
+            }
+        });
 
     }
 }
